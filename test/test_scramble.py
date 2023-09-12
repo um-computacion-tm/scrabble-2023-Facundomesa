@@ -11,6 +11,8 @@ class TestScrabbleGame(unittest.TestCase):
             3,
         )
         self.assertIsNotNone(scrabble_game.bag_tiles)
+    
+
 
 
 if __name__ == '__main__':

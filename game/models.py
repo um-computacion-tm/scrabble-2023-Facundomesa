@@ -124,14 +124,3 @@ class BagTiles:
 
     def put(self, tiles):
         self.tiles.extend(tiles)
-        
-        random.shuffle(self.tiles)
-
-    def take(self, count):
-        tiles = []
-        for _ in range(count):
-            tiles.append(self.tiles.pop())
-        return tiles
-
-    def put(self, tiles):
-        self.tiles.extend(tiles)
