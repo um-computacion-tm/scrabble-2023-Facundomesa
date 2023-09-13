@@ -4,7 +4,7 @@ from game.models import Tile
 
 
 class TestCell(unittest.TestCase):
-    def test_init(self):
+    def test__init(self):
         cell = Cell(multiplier=2, multiplier_type='letter')
 
         self.assertEqual(
