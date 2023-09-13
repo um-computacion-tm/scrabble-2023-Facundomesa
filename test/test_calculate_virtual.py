@@ -33,11 +33,7 @@ class TestCalculateWordValue(unittest.TestCase):
         word = [
             Cell(letter=Tile('C', 1)),
             Cell(letter=Tile('A', 1)),
-            Cell(
-                letter=Tile('S', 2),
-                multiplier=2,
-                multiplier_type='word',
-            ),
+            Cell(letter=Tile('S', 2),multiplier=2,multiplier_type='word'),
             Cell(letter=Tile('A', 1)),
         ]
         value = calculate_word_value(word)

@@ -1,13 +1,13 @@
 import random
 
 class Tile:
-    def _init_(self, letter, value):
+    def __init__(self, letter, value):
         self.letter = letter
         self.value = value
 
 
 class BagTiles:
-    def _init_(self):
+    def __init__(self):
         self.tiles = [
             Tile('A',1),
             Tile('A',1),
