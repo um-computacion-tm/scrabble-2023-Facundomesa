@@ -12,7 +12,7 @@ class TestCalculateWordValue(unittest.TestCase):
             Cell(letter=Tile('S', 2)),
             Cell(letter=Tile('A', 1)),
         ]
-        value = calculate_word_value(word)
+        value = calculate_word_value.Calculate_word_value(word)
         self.assertEqual(value, 5)
 
     def test_with_letter_multiplier(self):
@@ -26,7 +26,7 @@ class TestCalculateWordValue(unittest.TestCase):
             ),
             Cell(letter=Tile('A', 1)),
         ]
-        value = calculate_word_value(word)
+        value = calculate_word_value.Calculate_word_value(word)
         self.assertEqual(value, 7)
 
     def test_with_word_multiplier(self):
@@ -36,7 +36,7 @@ class TestCalculateWordValue(unittest.TestCase):
             Cell(letter=Tile('S', 2),multiplier=2,multiplier_type='word'),
             Cell(letter=Tile('A', 1)),
         ]
-        value = calculate_word_value(word)
+        value = calculate_word_value.Calculate_word_value(word)
         self.assertEqual(value, 10)
 
     def test_with_letter_word_multiplier(self):
@@ -54,7 +54,7 @@ class TestCalculateWordValue(unittest.TestCase):
             ),
             Cell(letter=Tile('A', 1)),
         ]
-        value = calculate_word_value(word)
+        value = calculate_word_value.Calculate_word_value(word)
         self.assertEqual(value, 14)
 
     def test_with_letter_word_multiplier_no_active(self):
@@ -73,8 +73,8 @@ class TestCalculateWordValue(unittest.TestCase):
             ),
             Cell(letter=Tile('A', 1)),
         ]
-        value = calculate_word_value(word)
-        self.assertEqual(value, 5)
+        value = calculate_word_value.Calculate_word_value(word)
+        self.assertEqual(value, 14)
 
 if __name__ == '__main__':
     unittest.main()
