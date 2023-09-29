@@ -17,3 +17,11 @@ class Player:
 
     def pass_turn(self):
         pass
+
+    def has_letters(self, tiles_to_check, bag_tile):
+    # Tomar 7 fichas del "rack" (bag_tile)
+        self.tiles = bag_tile.take(7)
+    # Obtener las letras del "rack"
+        rack_letters = [tile.letter for tile in self.tiles]
+    # Comprobar si todas las letras requeridas están en el "rack"
+        return all(rack_letters.count(tile.letter) >= tiles_to_check.count(tile) for tile in tiles_to_check)
