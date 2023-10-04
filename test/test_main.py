@@ -46,3 +46,39 @@ class TestMain(unittest.TestCase):
         self.assertIn('Valor inválido', main_output_value)
         self.assertIn('La cantidad de jugadores es: 3', main_output_value)
         self.assertIn('Turno del jugador 1', main_output_value)
+    def test_add_letter(self):
+        board = Board()
+        board.add_letter(7, 7, Tile('A', 1))
+        self.assertEqual(board.grid[7][7].letter.value, 1)  # Compara con el número 1 en lugar de 'A'
+        self.assertEqual(board.is_empty, False)
+
+
+    def test_validate_word_out_of_board(self):
+        board = Board()
+        word = "Python"
+        location = (13, 1)
+        orientation = "H"
+        result = board.validate_word_out_of_board(word, location, orientation)
+        self.assertEqual(result, True)
+
+    def test_validate_word_place_board_horizontal_overlap(self):
+        board = Board()
+        board.grid[7][7] = Cell(1, 'A')
+        word = "Apple"
+        location = (7, 6)
+        orientation = "H"
+        result = board.validate_word_place_board(word, location, orientation)
+        self.assertEqual(result, False)
+
+    def test_validate_word_place_board_vertical_overlap(self):
+        board = Board()
+        board.grid[7][7] = Cell(1, 'A')
+        word = "Apple"
+        location = (6, 7)
+        orientation = "V"
+        result = board.validate_word_place_board(word, location, orientation)
+        self.assertEqual(result, True)
+
+
+if __name__ == "__main__":
+    unittest.main()
