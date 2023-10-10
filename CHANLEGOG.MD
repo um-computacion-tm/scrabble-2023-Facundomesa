@@ -1,10 +1,12 @@
 <h1 align="center"> ScrabbleGame </h1>
 by Facundo Mesa
 
+
 ## [0.0.14] - 2023-09-04
 ### Added
 
 Add main and test_main
+Fixing test_main and main 
 
 
 ## [0.0.13] - 2023-09-28
