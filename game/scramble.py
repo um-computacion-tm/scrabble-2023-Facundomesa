@@ -1,20 +1,28 @@
-
-from game.player import Player
 from game.board import Board
-from game.cell import Cell
-from game.models import BagTiles
-
+from game.player import Player
+from game.models import BagTiles 
+from game.calculate_virtual import calculate_word_value
+from game.dictionary import Dictionary
 
 class ScrabbleGame:
-    def __init__(self, players_count=3):
+    def __init__(self, players_count):
         self.board = Board()
         self.bag_tiles = BagTiles()
-        self.players = []
-        self.players_count = players_count
+        self.players = []   
+        self.user_letters= []
         for _ in range(players_count):
-            self.players.append(Player(id=len(self.players) + 1))
-        self.current_player = None
-    
+             self.players.append(Player(id=len(self.players) + 1))# Quitamos el argumento 'id'
+        
+        if self.players:  # Verificar si hay jugadores en la lista
+            self.current_player = 0  # Inicializar con el primer jugador (puede ser 0 o 1 dependiendo de cómo se indexen los jugadores)
+        else:
+            self.current_player = None 
+
+    def add_player(self):
+        if self.player_count >= 4:
+            raise ValueError("El máximo número de jugadores permitido es 4")
+        self.players.append(Player(id=len(self.players) + 1))
+        self.player_count += 1
 
     def next_turn(self):
         if self.current_player is None:
@@ -24,12 +32,24 @@ class ScrabbleGame:
         else:
             self.current_player = self.players[self.players.index(self.current_player)+ 1]
 
-    def test_next_turn_when_player_is_last():
-    # Suponiendo que tenemos 3 jugadores, luego del jugador 3, le toca al jugador 1
-        scrabble_game = ScrabbleGame(players_count=3)
-        scrabble_game.current_player = scrabble_game.players[2]
+    def play(self, word, location, orientation):
+        self.validate_word(word, location, orientation)
+        words = self.board.put_words(word, location, orientation)
+        total = calculate_word_value(words)
+        self.players[self.current_player].score += total
+        self.next_turn()
 
-        scrabble_game.next_turn()
+    def next_turn(self):
+        if self.current_player is None:
+            self.current_player = 0  # Inicializar con el primer jugador
+        else:
+            self.current_player = (self.current_player + 1) % len(self.players)
 
-        assert scrabble_game.current_player == scrabble_game.players[0]
-    
+
+    def validate_word(self, word, location, orientation):
+        if not Dictionary(word):
+            raise ValueError("Su palabra no existe en el diccionario")
+        if not self.board.validate_word_inside_board(word, location, orientation):
+            raise ValueError("Su palabra excede el tablero")
+        if not self.board.validate_word_place_board(word, location, orientation):
+            raise ValueError("Su palabra esta mal puesta en el tablero")

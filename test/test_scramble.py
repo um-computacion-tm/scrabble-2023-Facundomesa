@@ -2,7 +2,7 @@ import unittest
 from game.scramble import ScrabbleGame
 
 
-
+import unittest
 
     
 class TestScrabbleGame(unittest.TestCase):
@@ -43,5 +43,5 @@ class TestScrabbleGame(unittest.TestCase):
         assert scrabble_game.current_player == scrabble_game.players[0]
 
 
-if __name__== "__main__":
+if __name__ == "__main__":
     unittest.main()
