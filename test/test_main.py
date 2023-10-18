@@ -103,6 +103,26 @@ class TestMain(unittest.TestCase):
     
     def test_main(self, *args):
         Main()
+    def show_board(board):
+    # Implementa la lógica para mostrar el tablero
+        pass
+
+    def show_player(player):
+    # Implementa la lógica para mostrar información del jugador
+        pass
+
+    def get_inputs():
+    # Implementa la lógica para obtener las entradas del jugador
+        pass
+
+class Main:
+    
+    def __init__(self):
+        print('Bienvenido')
+        self.player_count = self.get_player_count()
+        self.game = ScrabbleGame(self.player_count)
+        self.main_output = StringIO()
+
 
 if __name__ == '__main__':
     unittest.main()
