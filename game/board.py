@@ -1,13 +1,21 @@
 from game.cell import Cell
 from game.models import Tile
 
-
 class Board:
     def __init__(self):
-        self.grid = [[ Cell(1, '') for _ in range(15) ]for _ in range(15)]
+        self.grid = [[Cell(1, '') for _ in range(15)] for _ in range(15)]
         self.is_empty = True
         self.word_is_valid = True
-        
+
+    def __iter__(self):
+        for row in self.grid:
+            yield row
+
+    def display(self):
+        for row in self.grid:
+            for cell in row:
+                print(cell.letter or '.', end=' ')
+            print()
 
     def validate_word_inside_board(self, word, location: tuple, orientation):
         position_x = location[0]
@@ -17,14 +25,15 @@ class Board:
         if orientation == "H":
             if position_x + len_word > 15:
                 return False
-            elif position_y + len_word > 1:
-                return True 
+            elif position_y >= 15:
+                return False
         elif orientation == "V":
             if position_y + len_word > 15:
                 return False
-            elif position_x + len_word > 1:
-                return True     
-            
+            elif position_x >= 15:
+                return False
+        return True
+
     def add_letter(self, x, y, letter):
         self.grid[x][y].add_letter(letter)
         # Después de agregar una letra, el tablero ya no está vacío
@@ -35,13 +44,33 @@ class Board:
 
     def validate_word_place_board(self, word, location, orientation):
         row, col = location
-        if orientation == "H":
-            for letter in word:
+        for letter in word:
+            if orientation == "H":
                 if self.grid[row][col].letter != ' ' and self.grid[row][col].letter != letter:
                     return False
-            col += 1
-        
+                col += 1
+            elif orientation == "V":
+                if self.grid[row][col].letter != ' ' and self.grid[row][col].letter != letter:
+                    return False
+                row += 1
         return True
+
+    def put_words(self, word, location, orientation):
+        x, y = location
+        words = []  # Lista para almacenar las celdas actualizadas
+        if orientation == 'H':
+            for letter in word:
+                cell = self.grid[x][y]
+                cell.add_letter(letter)
+                words.append(cell)  # Agrega la celda actualizada a la lista
+                y += 1
+        elif orientation == 'V':
+            for letter in word:
+                cell = self.grid[x][y]
+                cell.add_letter(letter)
+                words.append(cell)  # Agrega la celda actualizada a la lista
+                x += 1
+        return words  # Devuelve la lista de celdas actualizadas
 
 
 
