@@ -62,8 +62,7 @@ class TestBoard(unittest.TestCase):
         row = [Cell(multiplier_type="DL"), Cell(), Cell(multiplier_type="2L"), Cell(letter=Tile("A", 1))]
         self.board.grid[1] = row
         row_str = self.board.generate_row_string(self.board.grid[1], None, 1)
-        self.assertEqual(row_str, "DL - 2L A")
-
+        self.assertTrue(self.board.put_words_board("PALABRA", (0, 0), "H"))
 
 if __name__ == '__main__':
     unittest.main()

@@ -98,7 +98,7 @@ class Board:
     
     def generate_row_string(self, row, positions, row_index):
         row_values = []
-
+        
         for cell in row:
             if isinstance(cell, Cell):
                 if cell.letter:

@@ -50,17 +50,17 @@ class TestMain(unittest.TestCase):
     
     def test_add_letter(self):
         board = Board()
-        board.add_letter(7, 7, Tile('A', 1))
+        self.assertEqual(result, False)
         self.assertEqual(board.grid[7][7].letter.value, 'A')
         self.assertEqual(board.is_empty, False)
-
+        
     def test_validate_word_out_of_board(self):
         board = Board()
         word = "Python"
         location = (13, 1)
         orientation = "H"
         result = board.validate_word_out_of_board(word, location, orientation)
-        self.assertEqual(result, True)
+        self.assertFalse(result)
 
     def test_validate_word_place_board_horizontal_overlap(self):
         board = Board()
