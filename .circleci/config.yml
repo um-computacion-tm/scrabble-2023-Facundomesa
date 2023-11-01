@@ -1,58 +1,24 @@
-version: "2"         # required to adjust maintainability checks
-checks:
-  argument-count:
-    enabled: true
-    config:
-      threshold: 4
-  complex-logic:
-    enabled: true
-    config:
-      threshold: 4
-  file-lines:
-    enabled: true
-    config:
-      threshold: 250
-  method-complexity:
-    enabled: true
-    config:
-      threshold: 5
-  method-count:
-    enabled: true
-    config:
-      threshold: 20
-  method-lines:
-    enabled: true
-    config:
-      threshold: 25
-  nested-control-flow:
-    enabled: true
-    config:
-      threshold: 4
-  return-statements:
-    enabled: true
-    config:
-      threshold: 4
-  similar-code:
-    enabled: true
-    config:
-      threshold: #language-specific defaults. overrides affect all languages.
-  identical-code:
-    enabled: true
-    config:
-      threshold: #language-specific defaults. overrides affect all languages.
-      
-exclude_patterns:
-- "config/"
-- "db/"
-- "dist/"
-- "features/"
-- "env/"
-- "**/node_modules/"
-- "script/"
-- "**/spec/"
-- "**/test/"
-- "**/tests/"
-- "tests/"
-- "**/vendor/"
-- "**/*_test.go"
-- "**/*.d.ts"
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/python:3.10.1
+    steps:
+      - checkout
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+              # download test reporter as a static binary
+              curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+              chmod +x ./cc-test-reporter
+              ./cc-test-reporter before-build
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: Running Tests
+          command: coverage run -m unittest && coverage xml && coverage report -m
+      - run:
+          name: Update CodeClimate coverage report
+          command: |
+              ./cc-test-reporter after-build

@@ -1,12 +1,16 @@
-import unicodedata
-
 class Dictionary:
+    def __init__(self, file_path):
+        self.words = self.load_words(file_path)
 
-    with open('dictionary.txt', 'r', encoding='utf-8') as file:
-        word_list = set(word.strip().lower() for word in file)
+    @staticmethod
+    def load_words(file_path):
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return set(word.strip() for word in file)
 
-    def remove_accents(self,word):
-        word = ''.join(x for x in unicodedata.normalize('NFKD', word) if not unicodedata.combining(x))
-        return word
-    def verify_word(self, word):
-        return word.lower() in self.word_list
+    def has_word(self, word):
+        if isinstance(word, list): 
+            for i in word:
+                list_in_str = "".join(word)
+            word = list_in_str
+        word = word.lower()
+        return word in self.words
