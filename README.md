@@ -11,14 +11,12 @@ How To Run It
 
     Clone the repository using: -git clone 
 
-    Navigate to the repository directory: cd /.../scrabble-2023-emilianomassolin
-
     Build the Docker image: -docker build -t image_name .- (In image name give it the name you want)
 
     Run the Docker image: -docker run -it image_name-
 
 [![CircleCI]
 
-[![Maintainability]
+[![Maintainability] <a href="https://codeclimate.com/github/um-computacion-tm/scrabble-2023-Facundomesa/maintainability"><img src="https://api.codeclimate.com/v1/badges/8443c79477a290a20954/maintainability" /></a>
 
-[![Test Coverage]
+[![Test Coverage]] <a href="https://codeclimate.com/github/um-computacion-tm/scrabble-2023-Facundomesa/test_coverage"><img src="https://api.codeclimate.com/v1/badges/8443c79477a290a20954/test_coverage" /></a>
